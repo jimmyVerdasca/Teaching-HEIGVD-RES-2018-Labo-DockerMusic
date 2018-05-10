@@ -2,7 +2,7 @@ const uuidv1 = require('uuid/v1');
 var dgram = require('dgram');
 
 var PORT_UDP = 8888;
-var HOST = '127.0.0.1';
+var MULTICAST_ADRESS = '239.255.36.36'
 
 // get the argument instrument given
 arg = process.argv[2]
@@ -38,7 +38,7 @@ setInterval(function () {
 
     console.log(jsonifiedInstrument)
     var client = dgram.createSocket('udp4');
-    client.send(jsonifiedInstrument, 0, jsonifiedInstrument.length, PORT, HOST, function (err, bytes) {
+    client.send(jsonifiedInstrument, 0, jsonifiedInstrument.length, PORT_UDP, MULTICAST_ADRESS, function (err, bytes) {
     client.close();
     });
 }, 1000);

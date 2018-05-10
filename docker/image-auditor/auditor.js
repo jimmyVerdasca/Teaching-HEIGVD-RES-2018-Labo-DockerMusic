@@ -7,34 +7,34 @@ var maMap = new Map();
 // TCP
 var PORT_TCP = 2205;
 var PORT_UDP = 8888;
-var HOST = '127.0.0.1';
+var HOST = '239.255.36.36';
+var MULTICAST_ADRESS = '239.255.36.36'
 
 var serverTCP = net.createServer(function(socket) {
     listCurrentInstrument = []
     for (let [ key, val ] of maMap.entries()) {
         listCurrentInstrument.push(val[0])
-        console.log(val[0])
     }
 	socket.write(listCurrentInstrument.toString());
 	socket.pipe(socket);
 });
 
-serverTCP.listen(PORT_TCP, '127.0.0.1');
+serverTCP.listen(PORT_TCP, HOST);
+console.log('UDP Server listening on ' + HOST + ":" + PORT_TCP);
 
 //UDP
 var serverUDP = dgram.createSocket('udp4');
-serverUDP.bind(PORT_UDP, HOST);
+serverUDP.bind(PORT_UDP, MULTICAST_ADRESS);
 
 serverUDP.on('listening', function () {
     var address = serverUDP.address();
-    console.log('UDP Server listening on ' + address.address + ":" + address.port);
 });
 
 serverUDP.on('message', function (message, remote) {
     //console.log(remote.address + ':' + remote.port +' - ' + message);
     json = JSON.parse(message)
     maMap.set(json['uuid'], [json['name'],json['activeSince']])
-    console.log(json['uuid'])
+    console.log('datagram received from ' + json['name'] + json['uuid'])
 });
 
 //create the udp multicast connexion
