@@ -17,11 +17,11 @@ var serverTCP = net.createServer(function(socket) {
         instrument.uuid = key
         instrument.instrument = val[0]
         instrument.activeSince = val[1]
-        listCurrentInstrument.push(instrument.instrument)
+        listCurrentInstrument.push(instrument)
     }
     console.log(JSON.stringify(listCurrentInstrument))
 	socket.write(JSON.stringify(listCurrentInstrument));
-	socket.pipe(socket);
+	socket.end()
 });
 
 serverTCP.listen(PORT_TCP, HOST);
@@ -54,5 +54,5 @@ setInterval(function () {
             maMap.delete(key)
         }
     }
-}, 5000);
+}, 1000);
 

@@ -7,6 +7,11 @@ MAINTAINER Olivier Liechti <olivier.liechti@heig-vd.ch>
 COPY src /opt/app/
 
 WORKDIR /opt/app/
-RUN npm install
+RUN npm init -y
+RUN npm install --save net
+RUN npm install --save async
+RUN npm install --save chance
+RUN npm install --save chai
+RUN npm install --save dockerode
 
 ENTRYPOINT ["node", "/opt/app/app.js"]

@@ -53,7 +53,6 @@ function askAuditorForActiveInstruments(activeInstrumentsHaveBeenRetrieved) {
 		});
 		client.on('data', function(data) {
 			payload = payload + data;
-			console.log(payload)
 		});
 		client.on('end', function() {
 			var instruments = JSON.parse(payload);
@@ -108,6 +107,7 @@ function compareAuditorStateAgainstRunningContainers( checkDone ) {
 			console.log("Auditor validation: success: " + JSON.stringify(instrumentsSeenByAuditor));
 			checkDone( null, "Auditor validation: success");
 	});
+	console.log("async ASKED for RESULTS")
 }
 
 /*
@@ -164,6 +164,6 @@ async.parallel(startContainerFunctions, function(err, results) {
 		}
 		
 		
-	}, 5000);
+	}, 6000);
 });
 
