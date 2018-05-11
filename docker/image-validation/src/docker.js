@@ -51,7 +51,7 @@ function startContainer( image, command, containerHasStarted ) {
 		container.start( function(err, startData) {
 			//checkContainerStatus();
 			container.inspect(function(err, containerData) {
-				containerHasStarted(null, containerData);				
+				containerHasStarted(null, containerData);		
 			});
 		});
 

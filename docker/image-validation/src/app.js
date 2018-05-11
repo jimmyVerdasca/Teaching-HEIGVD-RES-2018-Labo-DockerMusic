@@ -53,6 +53,7 @@ function askAuditorForActiveInstruments(activeInstrumentsHaveBeenRetrieved) {
 		});
 		client.on('data', function(data) {
 			payload = payload + data;
+			console.log(payload)
 		});
 		client.on('end', function() {
 			var instruments = JSON.parse(payload);
@@ -144,9 +145,9 @@ async.parallel(startContainerFunctions, function(err, results) {
 		 * musician, wait for 8 seconds and check the status.
 		 */
 		compareAuditorStateAgainstRunningContainers(function(err, result) {
-			checkThatAuditorDetectsKilledContainer();			
+			checkThatAuditorDetectsKilledContainer();	
 		});
-		
+
 		function checkThatAuditorDetectsKilledContainer() {
 			if (numberOfRemainingTests === 0) {
 				console.log("We have done all tests.");
@@ -157,7 +158,7 @@ async.parallel(startContainerFunctions, function(err, results) {
 			setTimeout(function() {
 				compareAuditorStateAgainstRunningContainers( function(err, result) {
 					console.log("Scheduling a new test");
-					checkThatAuditorDetectsKilledContainer();					
+					checkThatAuditorDetectsKilledContainer();				
 				});
 			}, 8000);			
 		}

@@ -21,7 +21,7 @@ var serverTCP = net.createServer(function(socket) {
     }
     console.log(JSON.stringify(listCurrentInstrument))
 	socket.write(JSON.stringify(listCurrentInstrument));
-    socket.end();
+	socket.pipe(socket);
 });
 
 serverTCP.listen(PORT_TCP, HOST);
@@ -54,5 +54,5 @@ setInterval(function () {
             maMap.delete(key)
         }
     }
-}, 1000);
+}, 5000);
 

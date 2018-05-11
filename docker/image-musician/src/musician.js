@@ -38,8 +38,10 @@ setInterval(function () {
 
     console.log(jsonifiedInstrument)
     var client = dgram.createSocket('udp4');
+    client.bind(PORT_UDP)
     client.send(jsonifiedInstrument, 0, jsonifiedInstrument.length, PORT_UDP, MULTICAST_ADRESS, function (err, bytes) {
-    client.close();
+        if (err) throw err;
+        client.close();
     });
 }, 1000);
 
